@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using System.Drawing;
 using webapi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
