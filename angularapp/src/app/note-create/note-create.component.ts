@@ -3,6 +3,7 @@ import { Note } from '../models/note.model';
 import { NgForm } from '@angular/forms';
 import { NoteService } from '../note.service';
 import { Router } from '@angular/router';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-note-create',
@@ -20,7 +21,7 @@ export class NoteCreateComponent implements OnInit {
   onSubmit(form: NgForm) {
     this.note.title = form.value.title;
     this.note.content = form.value.title;
-    this.note.createdAt = "this should be some time"; //TODO get time
+    this.note.createdAt = formatDate(Date.now(), 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0200');
 
     this.noteService.add(this.note).subscribe(
       (result) => {

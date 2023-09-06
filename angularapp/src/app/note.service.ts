@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Note } from './models/note.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class NoteService {
   }
 
   update(id: number, title: string, content: string): Observable<Note>{
-    const newNote = new Note(title, content, "some time"); //TODO get time
+    const newNote = new Note(title, content, formatDate(Date.now(), 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0200')); 
     newNote.id = id;
     return this.http.put<Note>('/notes/' + id, newNote);
   }
