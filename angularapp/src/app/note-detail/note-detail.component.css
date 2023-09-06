@@ -1,0 +1,34 @@
+.note-detail {
+    position:relative;
+    width: 250px;
+}
+
+.pi {
+  position: absolute;
+  top: 85px;
+  font-size: 1.5rem;
+}
+
+.pi:active {
+    transform:scale(1.2);
+}
+
+.pi-trash {  
+    left: 50px;
+}
+
+.pi-trash:hover {
+    color: red;
+}
+
+.pi-file-edit {
+  left: 15px;
+}
+
+.pi-file-edit:hover {
+    color:green;
+}
+
+.created-at {
+    text-align:right;
+}

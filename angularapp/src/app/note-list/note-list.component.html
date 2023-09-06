@@ -1,1 +1,13 @@
-<p>note-list works!</p>
+<div class="container">
+  <div class="search">
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input type="text" placeholder="Search" pInputText />
+    </span>
+  </div>
+  <div class="note-list">
+    <div class="card" *ngFor="let note of notes">
+      <app-note-detail [note]="note"></app-note-detail>
+    </div>
+  </div>
+</div>

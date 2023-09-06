@@ -1,1 +1,12 @@
-<p>note-detail works!</p>
+<p-card class="note-detail" header={{note.title}} [style]="{ margin: '20px 0 0 0' }">
+  <p class="m-0">
+    {{note.content}}
+  </p>
+
+  
+  <ng-template pTemplate="footer">
+    <p class="created-at">{{note.createdAt}}</p>
+  </ng-template>
+  <i class="pi pi-trash"></i>
+  <i class="pi pi-file-edit"></i>
+</p-card>
