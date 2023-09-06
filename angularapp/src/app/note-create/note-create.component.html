@@ -1,1 +1,29 @@
-<p>note-create works!</p>
+<!--TODO DRY-->
+<div class="container">
+
+  <form #noteForm="ngForm" (ngSubmit)="onSubmit(noteForm)">
+    <div class="field">
+      <span class="p-float-label">
+        <input required [ngModel]="note.title" pInputText name="title" id="title" />
+        <label htmlFor="title">Title</label>
+      </span>
+    </div>
+
+    <br />
+
+    <div class="field">
+      <span class="p-float-label">
+        <textarea [ngModel]="note.content" name="content" class="text-area" id="float-input" rows="5" cols="30" pInputTextarea></textarea>
+        <!--<label for="float-input">Content</label>-->
+      </span>
+    </div>
+
+    <div class="field buttons">
+      <p-button type="submit" styleClass="p-button-success" [disabled]="!noteForm.valid" label="Save"></p-button>
+      <p-button styleClass="p-button-danger" label="Cancel" routerLink=""></p-button>
+    </div>
+
+
+  </form>
+
+</div>

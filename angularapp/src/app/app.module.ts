@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NoteListComponent } from './note-list/note-list.component';
@@ -31,14 +32,14 @@ import { InputTextModule } from 'primeng/inputtext';
     CardModule,
     ScrollerModule,
     InputTextModule,
+    FormsModule,
     RouterModule.forRoot([
-      { path: 'create', component: NoteCreateComponent },
-      { path: 'edit', component: NoteDetailComponent },
       {
         path: '', component: LayoutComponent, children: [
-          { path: '', component: NoteListComponent }
+          { path: '', component: NoteListComponent },
+          { path: 'create', component: NoteCreateComponent },
+          { path: ':id', component: NoteEditComponent },          
       ] },
-      { path: 'detail', component: NoteDetailComponent }
     ])
   ],
   providers: [],

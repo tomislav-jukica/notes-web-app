@@ -1,0 +1,28 @@
+.container {
+    max-width: 500px;
+    margin: auto;
+    margin-top: 25px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.field {
+    margin-top: 15px;
+}
+
+.field.buttons {
+    width:250px;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+}
+
+.p-element {
+  width: 100%;
+  display:flex;
+  justify-content:center;
+}
+.text-area {
+    width: 250px;
+}
