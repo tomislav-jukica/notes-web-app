@@ -10,16 +10,20 @@ import { Subscription } from 'rxjs';
   templateUrl: './note-edit.component.html',
   styleUrls: ['./note-edit.component.css']
 })
-export class NoteEditComponent implements OnInit {  
+export class NoteEditComponent implements OnInit {
+
   note: Note;
   private id: number;
-  private routeSub : Subscription;
+  private routeSub: Subscription;
+  loading: boolean;
+
   constructor(
     private noteService: NoteService,
     private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.routeSub = this.route.params.subscribe(params => {
       this.id = params['id'];
     })
@@ -27,6 +31,7 @@ export class NoteEditComponent implements OnInit {
     this.noteService.get(this.id).subscribe(
       (result) => {
         this.note = result;
+        this.loading = false;
       }, (error) => {
         console.error(error);
       }
@@ -37,11 +42,10 @@ export class NoteEditComponent implements OnInit {
     this.noteService.update(this.id, form.value.title, form.value.content).subscribe(
       (result) => {
         console.log(result);
+        this.router.navigate(['']);
       }, (error) => {
         console.error(error);
       }
     );
-
-    this.router.navigate(['']);
   }
 }

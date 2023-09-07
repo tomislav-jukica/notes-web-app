@@ -20,18 +20,17 @@ export class NoteCreateComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.note.title = form.value.title;
-    this.note.content = form.value.title;
+    this.note.content = form.value.content;
     this.note.createdAt = formatDate(Date.now(), 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0200');
 
     this.noteService.add(this.note).subscribe(
       (result) => {
         console.log(result);
+        this.router.navigate(['']);
       }, (error) => {
         console.error(error);
       }
     );
-
-    this.router.navigate(['']);
   }
 
 }

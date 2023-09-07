@@ -6,9 +6,23 @@
   padding: 20px 0;
 }
 
+.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.menu-buttons {
+    width: 50%;
+    display:flex;
+    justify-content: space-evenly;
+    margin: 20px;
+}
+
 .search {
   margin: auto;
-  width: 100%;
+  width: 50%;
 }
 
   .search input {

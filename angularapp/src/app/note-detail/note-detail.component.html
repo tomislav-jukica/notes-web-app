@@ -1,12 +1,17 @@
 <p-card class="note-detail" header={{note.title}} [style]="{ margin: '20px 0 0 0' }">
-  <p class="m-0">
-    {{note.content}}
-  </p>
-
-
-  <ng-template pTemplate="footer">
+  <ng-template pTemplate="header">
     <p class="created-at">{{note.createdAt}}</p>
   </ng-template>
+
+  <p class="m-0 card-content">
+    {{note.content}}
+  </p>
+  <div class="fade-out"> </div>
+
+  <ng-template pTemplate="footer">
+    
+  </ng-template>
+  <i class="pi pi-eye" (click)="onOpen()"></i>
   <i class="pi pi-file-edit" (click)="onEdit()"></i>
   <i class="pi pi-trash" (click)="onDelete()"></i>
 </p-card>

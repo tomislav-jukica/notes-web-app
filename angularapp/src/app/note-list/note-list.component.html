@@ -1,18 +1,26 @@
 <div class="container">
-  <div class="search">
-    <span class="p-input-icon-left">
-      <i class="pi pi-search"></i>
-      <input type="text" placeholder="Search" pInputText />
-    </span>
+  <div class="menu">
+
+    <div class="search">
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input type="text" placeholder="Search" pInputText (keyup)="filter($event)" />
+      </span>
+    </div>
+    <div class="menu-buttons">
+      <p-button (click)="sortByTime()" label="Sort by time"></p-button>
+      <p-button (click)="sortByTitle()" label="Sort by title"></p-button>
+    </div>
+
   </div>
 
   <div class="note-list">
-    <div class="card" *ngFor="let note of notes">
+    <div class="card" *ngFor="let note of filteredNotes">
       <app-note-detail [note]="note"></app-note-detail>
     </div>
   </div>
 
 
-    <p-button label="Create new note" styleClass="p-button-raised-" class="add-button" routerLink="create"></p-button>
-  
+  <p-button label="Create new note" styleClass="p-button-raised-" class="add-button" routerLink="create"></p-button>
+
 </div>

@@ -26,11 +26,17 @@ export class NoteDetailComponent {
     this.noteService.delete(this.note.id).subscribe(
       (result: null) => {
         console.log(result);
-        this.noteList.ngOnInit();
+        this.noteList.afterDelete(this.note);
       }, (error) => {
         console.error(error);
       }
     );
   }
+
+  onOpen() {
+    //TODO maybe make a different view page
+    this.router.navigate([this.note.id]);
+  }
+
 }
 

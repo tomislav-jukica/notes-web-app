@@ -1,6 +1,6 @@
 <div class="container">
 
-  <form #noteForm="ngForm" (ngSubmit)="onSubmit(noteForm)">
+  <form *ngIf="!loading" #noteForm="ngForm" (ngSubmit)="onSubmit(noteForm)">
     <div class="field">
       <span class="p-float-label">
         <input required [ngModel]="note.title" pInputText name="title" id="title" />
