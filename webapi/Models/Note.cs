@@ -14,5 +14,6 @@ namespace webapi.Models
         public required string CreatedAt { get; set; }
         public bool IsPinned { get; set; }
         public string? Color { get; set; }
+        public string? Tags { get; set; }
     }
 }

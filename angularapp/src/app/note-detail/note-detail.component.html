@@ -1,21 +1,27 @@
-<p-card [ngStyle]="{backgroundColor: note.color}" class="note-detail" header={{note.title}}>
+<div class="card-holder">
+  <!-- TODO changing background like this is dumb -->
+  <!--[style]="{ background: note.color }"-->
+  <p-card [ngStyle]="{backgroundColor: note.color}" class="note-detail" header={{note.title}}>
 
-  <ng-template  pTemplate="header">
-    <p class="created-at">{{note.createdAt}}</p>
-  </ng-template>
+    <ng-template pTemplate="header">
+      <p class="created-at">{{note.createdAt}}</p>
+      <span class="tags">{{tags}}</span>
+    </ng-template>
 
-  <p class="m-0 card-content">
-    {{note.content}}
-  </p>
-  <div class="fade-out"> </div>
 
-  <ng-template pTemplate="footer">
-    
-  </ng-template>
 
-  <i class="pi pi-eye" (click)="onOpen()"></i>
-  <i class="pi pi-file-edit" (click)="onEdit()"></i>
-  <i class="pi pi-trash" (click)="onDelete()"></i>
-  <i *ngIf="!note.isPinned" class="pi pi-heart" (click)="onPin()"></i>
-  <i *ngIf="note.isPinned" class="pi pi-heart-fill" (click)="onPin()"></i>
-</p-card>
+
+    <p class="m-0 card-content">
+      {{note.content}}
+    </p>
+    <div class="fade-out"> </div>
+
+    <i class="pi pi-eye" (click)="onOpen()"></i>
+    <i class="pi pi-file-edit" (click)="onEdit()"></i>
+    <i class="pi pi-trash" (click)="onDelete()"></i>
+    <i *ngIf="!note.isPinned" class="pi pi-heart" (click)="onPin()"></i>
+    <i *ngIf="note.isPinned" class="pi pi-heart-fill" (click)="onPin()"></i>
+  </p-card>
+</div>
+
+

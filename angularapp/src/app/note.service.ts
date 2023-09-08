@@ -28,8 +28,8 @@ export class NoteService {
 
   }
 
-  update(id: number, title: string, content: string, createdAt: string, isPinned: boolean, color: string): Observable<Note> {
-    const newNote = new Note(title, content, createdAt, color);
+  update(id: number, title: string, content: string, createdAt: string, isPinned: boolean, color: string, tags: string): Observable<Note> {
+    const newNote = new Note(title, content, createdAt, color, tags);
     newNote.id = id;
     newNote.isPinned = isPinned;
     return this.http.put<Note>('/notes/' + id, newNote);

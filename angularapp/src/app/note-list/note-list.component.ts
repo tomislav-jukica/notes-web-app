@@ -85,7 +85,9 @@ export class NoteListComponent implements OnInit {
     query = query.toLowerCase().trim();
 
     const relevantNotes = this.notes.filter(note => {
-      if (note.content.toLowerCase().includes(query) || note.title.toLowerCase().includes(query)) {
+      if (note.content.toLowerCase().includes(query)
+        || note.title.toLowerCase().includes(query)
+        || (note.tags != null && note.tags.toLowerCase().includes(query))) {
         return true;
       }
       return false;

@@ -23,6 +23,17 @@
   display:flex;
   justify-content:center;
 }
+
 .text-area {
     width: 250px;
+}
+
+.color-picker {
+  width: 250px;
+  display: flex;
+}
+
+.tag-label {
+  padding-bottom: 5px;
+  display: block;
 }

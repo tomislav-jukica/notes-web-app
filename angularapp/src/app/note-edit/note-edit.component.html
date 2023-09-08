@@ -17,8 +17,16 @@
       </span>
     </div>
 
-    <p-colorPicker class="color-picker" [(ngModel)]="note.color" name="color"></p-colorPicker>
+    <div class="field">
+      <span class="p-float-label">
+        <input [ngModel]="note.tags" pInputText name="tags" id="tags" />
+        <label class="tag-label" htmlFor="tags">Tags (use space for different tags)</label>
+      </span>
+    </div>
 
+    <div class="field">
+      <p-colorPicker class="color-picker" [(ngModel)]="note.color" name="color"></p-colorPicker>
+    </div>
     <div class="field buttons">
       <p-button type="submit" styleClass="p-button-success" [disabled]="!noteForm.valid" label="Save"></p-button>
       <p-button styleClass="p-button-danger" label="Cancel" routerLink=""></p-button>

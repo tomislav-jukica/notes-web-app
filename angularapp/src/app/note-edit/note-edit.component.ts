@@ -40,9 +40,9 @@ export class NoteEditComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    this.noteService.update(this.id, form.value.title, form.value.content, formatDate(Date.now(), 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0200'), this.note.isPinned, this.note.color).subscribe(
-      (result) => {
-        console.log(result);
+    this.noteService.update(this.id, form.value.title, form.value.content, formatDate(Date.now(), 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0200'), this.note.isPinned, form.value.color, form.value.tags).subscribe(
+      () => {
+        console.log(this.note.tags);
         this.router.navigate(['']);
       }, (error) => {
         console.error(error);

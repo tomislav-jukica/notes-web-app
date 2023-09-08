@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Note } from '../models/note.model';
 import { NoteService } from '../note.service';
 import { Router } from '@angular/router';
@@ -10,13 +10,19 @@ import { NoteListComponent } from '../note-list/note-list.component';
   templateUrl: './note-detail.component.html',
   styleUrls: ['./note-detail.component.css']
 })
-export class NoteDetailComponent {
+export class NoteDetailComponent implements OnInit {
   @Input() public note: Note;
+  tags: string;
 
   constructor(
     private noteService: NoteService,
     private router: Router,
     private noteList: NoteListComponent) { }
+
+  ngOnInit(): void {
+    this.tags = this.note.tags;
+    console.log(this.tags);
+    }
 
   onEdit() {
     this.router.navigate([this.note.id]);
@@ -40,7 +46,7 @@ export class NoteDetailComponent {
 
   onPin() {
     this.note.isPinned = !this.note.isPinned;
-    this.noteService.update(this.note.id, this.note.title, this.note.content, this.note.createdAt, this.note.isPinned, this.note.color).subscribe(
+    this.noteService.update(this.note.id, this.note.title, this.note.content, this.note.createdAt, this.note.isPinned, this.note.color, this.note.tags).subscribe(
       (result) => {
         console.log(result);
         this.noteList.ngOnInit();

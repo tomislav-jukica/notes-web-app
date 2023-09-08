@@ -15,7 +15,7 @@ export class NoteCreateComponent implements OnInit {
   constructor(private noteService: NoteService, private router: Router) {}
 
   ngOnInit(): void {
-    this.note = new Note("","","","#ffffff");
+    this.note = new Note("","","","#ffffff", "");
   }
 
   onSubmit(form: NgForm) {
