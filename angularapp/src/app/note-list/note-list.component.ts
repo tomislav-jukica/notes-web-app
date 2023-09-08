@@ -11,6 +11,10 @@ import { NoteService } from '../note.service';
 export class NoteListComponent implements OnInit {
   public notes: Note[] = new Array<Note>();
   filteredNotes: Note[] = new Array<Note>();
+  pinnedNotest: Note[] = new Array<Note>();
+
+  private isSortedByDate: boolean = false;
+  private isSortedByTitle: boolean = false;
   constructor(private noteService: NoteService) { }
 
   ngOnInit(): void {
@@ -18,6 +22,21 @@ export class NoteListComponent implements OnInit {
       (result: Note[]) => {
         this.notes = result;
         this.filteredNotes = this.notes;
+
+        if (this.isSortedByTitle) {
+          this.sortByTitle();
+        } else if (this.isSortedByDate) {
+          this.sortByTime();
+        } else {
+          this.filteredNotes.sort((a, b) => {
+            if (a.isPinned && !b.isPinned) {
+              return -1;
+            } else if (!a.isPinned && b.isPinned) {
+              return 1;
+            }
+            return 0;
+          });
+        }
       }, (error) => {
         console.error(error);
       }
@@ -76,16 +95,36 @@ export class NoteListComponent implements OnInit {
   }
 
   sortByTime() {
+    this.isSortedByTitle = false;
+    this.isSortedByDate = true;
+
     this.filteredNotes.sort((a, b) => {
+      if (a.isPinned && !b.isPinned) {
+        return -1;
+      } else if (!a.isPinned && b.isPinned) {
+        return 1;
+      }
+
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
 
   }
 
   sortByTitle() {
+    this.isSortedByTitle = true;
+    this.isSortedByDate = false;
+
     this.filteredNotes.sort((a, b) => {
+
+      if (a.isPinned && !b.isPinned) {
+        return -1;
+      } else if (!a.isPinned && b.isPinned) {
+        return 1;
+      }
+
       return a.title.localeCompare(b.title);
     });
   }
+
 }
 

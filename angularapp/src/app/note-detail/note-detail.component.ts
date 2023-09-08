@@ -38,5 +38,15 @@ export class NoteDetailComponent {
     this.router.navigate([this.note.id]);
   }
 
+  onPin() {
+    this.note.isPinned = !this.note.isPinned;
+    this.noteService.update(this.note.id, this.note.title, this.note.content, this.note.isPinned).subscribe(
+      (result) => {
+        console.log(result);
+        this.noteList.ngOnInit();
+      }
+    );
+  }
+
 }
 

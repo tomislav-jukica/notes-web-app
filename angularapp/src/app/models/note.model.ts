@@ -3,6 +3,7 @@ export class Note {
   public title: string;
   public content: string;
   public createdAt: string;
+  public isPinned: boolean;
 
   constructor(title: string, content: string, createdAt: string) {
     this.title = title;

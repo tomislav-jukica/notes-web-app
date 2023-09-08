@@ -39,7 +39,7 @@ export class NoteEditComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    this.noteService.update(this.id, form.value.title, form.value.content).subscribe(
+    this.noteService.update(this.id, form.value.title, form.value.content, this.note.isPinned).subscribe(
       (result) => {
         console.log(result);
         this.router.navigate(['']);

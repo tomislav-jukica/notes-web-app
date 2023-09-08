@@ -11,7 +11,10 @@
   <ng-template pTemplate="footer">
     
   </ng-template>
+
   <i class="pi pi-eye" (click)="onOpen()"></i>
   <i class="pi pi-file-edit" (click)="onEdit()"></i>
   <i class="pi pi-trash" (click)="onDelete()"></i>
+  <i *ngIf="!note.isPinned" class="pi pi-heart" (click)="onPin()"></i>
+  <i *ngIf="note.isPinned" class="pi pi-heart-fill" (click)="onPin()"></i>
 </p-card>

@@ -29,9 +29,10 @@ export class NoteService {
 
   }
 
-  update(id: number, title: string, content: string): Observable<Note>{
+  update(id: number, title: string, content: string, isPinned: boolean): Observable<Note>{
     const newNote = new Note(title, content, formatDate(Date.now(), 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0200')); 
     newNote.id = id;
+    newNote.isPinned = isPinned;
     return this.http.put<Note>('/notes/' + id, newNote);
   }
 

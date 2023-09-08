@@ -55,10 +55,15 @@
     color: green;
 }
 
+.pi-heart:hover
+.pi-heart-fill:hover {
+  color: blue;
+  transform: scale(1.2);
+}
+
 .created-at {
     text-align:right;
     padding: 10px;
-
 }
 
 .p-card {
