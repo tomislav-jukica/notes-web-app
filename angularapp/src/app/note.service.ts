@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Note } from './models/note.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -15,22 +14,22 @@ export class NoteService {
     this.getAll();
   }
 
-  getAll() : Observable<Note[]> {
+  getAll(): Observable<Note[]> {
     return this.http.get<Note[]>('/notes');
   }
 
-  get(id: number) : Observable<Note> {
+  get(id: number): Observable<Note> {
     return this.http.get<Note>('/notes/' + id);
   }
 
-  add(note: Note) : Observable<Note> {
+  add(note: Note): Observable<Note> {
     console.log(note);
     return this.http.post<Note>('/notes', note);
 
   }
 
-  update(id: number, title: string, content: string, isPinned: boolean): Observable<Note>{
-    const newNote = new Note(title, content, formatDate(Date.now(), 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0200')); 
+  update(id: number, title: string, content: string, createdAt: string, isPinned: boolean, color: string): Observable<Note> {
+    const newNote = new Note(title, content, createdAt, color);
     newNote.id = id;
     newNote.isPinned = isPinned;
     return this.http.put<Note>('/notes/' + id, newNote);

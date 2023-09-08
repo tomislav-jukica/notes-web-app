@@ -1,15 +1,17 @@
 .note-detail {
-    position:relative;
-    width: 250px;
-    height: 250px;
-    display:flow;
-    overflow:hidden;
+  position: relative;
+  width: 250px;
+  height: 250px;
+  display: flow;
+  overflow: hidden;  
+  margin: 20px;
+  border-radius: 0 0 10px 10px;
 }
 
 .card-content {
-    position:relative;
-    max-height: 80px;
-    overflow: hidden;
+  position: relative;
+  max-height: 80px;
+  overflow: hidden;
 }
 
 .fade-out {
@@ -27,33 +29,33 @@
   font-size: 1.5rem;
 }
 
-.pi:active {
-    transform:scale(1.2);
+  .pi:active {
+    transform: scale(1.2);
+  }
+
+.pi-trash {
+  right: 15px;
 }
 
-.pi-trash {  
-    right: 15px;
-}
-
-.pi-trash:hover {
+  .pi-trash:hover {
     color: red;
-}
+  }
 
 .pi-file-edit {
   right: 50px;
 }
 
-.pi-file-edit:hover {
-    color:green;
-}
+  .pi-file-edit:hover {
+    color: green;
+  }
 
 .pi-eye {
-    right: 85px;
+  right: 85px;
 }
 
-.pi-eye:hover {
+  .pi-eye:hover {
     color: green;
-}
+  }
 
 .pi-heart:hover
 .pi-heart-fill:hover {
@@ -62,10 +64,10 @@
 }
 
 .created-at {
-    text-align:right;
-    padding: 10px;
+  text-align: right;
+  padding: 10px;
 }
 
 .p-card {
-    height:250px;
+  height: 250px;
 }

@@ -4,6 +4,7 @@ import { Note } from '../models/note.model';
 import { NoteService } from '../note.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-note-edit',
@@ -39,7 +40,7 @@ export class NoteEditComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    this.noteService.update(this.id, form.value.title, form.value.content, this.note.isPinned).subscribe(
+    this.noteService.update(this.id, form.value.title, form.value.content, formatDate(Date.now(), 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0200'), this.note.isPinned, this.note.color).subscribe(
       (result) => {
         console.log(result);
         this.router.navigate(['']);

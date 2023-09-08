@@ -40,7 +40,7 @@ export class NoteDetailComponent {
 
   onPin() {
     this.note.isPinned = !this.note.isPinned;
-    this.noteService.update(this.note.id, this.note.title, this.note.content, this.note.isPinned).subscribe(
+    this.noteService.update(this.note.id, this.note.title, this.note.content, this.note.createdAt, this.note.isPinned, this.note.color).subscribe(
       (result) => {
         console.log(result);
         this.noteList.ngOnInit();

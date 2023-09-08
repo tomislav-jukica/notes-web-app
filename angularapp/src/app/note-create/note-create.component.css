@@ -28,3 +28,8 @@
 .text-area {
   width: 250px;
 }
+
+.color-picker {
+    width: 250px;
+    display: flex;
+}

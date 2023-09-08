@@ -15,6 +15,8 @@ import { CardModule } from 'primeng/card';
 import { ScrollerModule } from 'primeng/scroller';
 import { LayoutComponent } from './layout/layout.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { ColorPickerModule } from 'primeng/colorpicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { InputTextModule } from 'primeng/inputtext';
     ScrollerModule,
     InputTextModule,
     FormsModule,
+    ColorPickerModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot([
       {
         path: '', component: LayoutComponent, children: [

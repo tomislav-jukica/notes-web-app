@@ -8,7 +8,7 @@
       </span>
     </div>
 
-    <br/>
+    <br />
 
     <div class="field">
       <span class="p-float-label">
@@ -17,12 +17,12 @@
       </span>
     </div>
 
+    <p-colorPicker class="color-picker" [(ngModel)]="note.color" name="color"></p-colorPicker>
+
     <div class="field buttons">
       <p-button type="submit" styleClass="p-button-success" [disabled]="!noteForm.valid" label="Save"></p-button>
       <p-button styleClass="p-button-danger" label="Cancel" routerLink=""></p-button>
     </div>
 
-
   </form>
-
 </div>

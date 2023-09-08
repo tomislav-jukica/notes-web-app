@@ -1,5 +1,6 @@
-<p-card class="note-detail" header={{note.title}} [style]="{ margin: '20px 0 0 0' }">
-  <ng-template pTemplate="header">
+<p-card [ngStyle]="{backgroundColor: note.color}" class="note-detail" header={{note.title}}>
+
+  <ng-template  pTemplate="header">
     <p class="created-at">{{note.createdAt}}</p>
   </ng-template>
 
