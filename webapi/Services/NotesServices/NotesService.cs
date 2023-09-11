@@ -112,7 +112,28 @@ namespace webapi.Services.NotesServices
 
             return await _context.Checklists.ToListAsync();
         }
-        public async Task<Checklist?> GetChecklist(long id)
+
+        public async Task<IEnumerable<ChecklistElement>?> GetChecklistElements(long id)
+        {
+            if (_context.ChecklistElements == null)
+            {
+                return null;
+            }
+
+            var allElements = await _context.ChecklistElements.ToListAsync();
+            var retVal = new List<ChecklistElement>();
+            foreach (var element in allElements)
+            {
+                if (element.ChecklistId == id)
+                {
+                    retVal.Add(element);
+                }
+            }
+
+            return retVal;
+        }
+
+        public async Task<ChecklistDto?> GetChecklist(long id)
         {
             if (_context.Checklists == null)
             {
@@ -120,20 +141,46 @@ namespace webapi.Services.NotesServices
             }
 
             Checklist? checklist = await _context.Checklists.FindAsync(id);
-
+            List<ChecklistElement> checklistElements = await _context.ChecklistElements.Where(e => e.ChecklistId == id).ToListAsync();
+            List<ChecklistElementDto> checklistElementDto = new();
             if (checklist == null)
             {
                 return null;
             }
 
-            return checklist;
+            for (int i = 0; i < checklistElements.Count; i++)
+            {
+                ChecklistElementDto element = new();
+                element.Title = checklistElements[i].Title;
+                element.IsChecked = checklistElements[i].IsChecked;
+                checklistElementDto.Add(element);
+              } 
+
+            ChecklistDto checklistDto = new()
+            {
+                Title = checklist.Title,
+                CreatedAt = checklist.CreatedAt,
+                Color = checklist.Color,
+                IsPinned = checklist.IsPinned,
+                Tags = checklist.Tags,
+                Elements = checklistElementDto,
+            };
+
+            return checklistDto;
         }
-        public async Task<bool> PutChecklist(long id, Checklist checklist)
+        public async Task<bool> PutChecklist(long id, ChecklistDto checklistDto)
         {
-            if (id != checklist.Id)
+            var checklist = await _context.Checklists.FirstOrDefaultAsync(c => c.Id == id);
+            if (checklist == null)
             {
                 return false;
             }
+
+            checklist.Title = checklistDto.Title;
+            checklist.CreatedAt = checklistDto.CreatedAt;
+            checklist.IsPinned = checklistDto.IsPinned;
+            checklist.Color = checklistDto.Color;
+            checklist.Tags = checklistDto.Tags;
 
             _context.Entry(checklist).State = EntityState.Modified;
 
@@ -151,6 +198,24 @@ namespace webapi.Services.NotesServices
                 {
                     throw;
                 }
+            }
+
+            var checklistElements = await _context.ChecklistElements.Where(e => e.ChecklistId == id).ToListAsync();
+
+            for (int i = 0; i < checklistElements.Count; i++)
+            {
+                checklistElements[i].Title = checklistDto.Elements[i].Title;
+                checklistElements[i].IsChecked = checklistDto.Elements[i].IsChecked;
+                _context.Entry(checklistElements[i]).State = EntityState.Modified;
+            }
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
             }
 
             return true;
@@ -180,7 +245,7 @@ namespace webapi.Services.NotesServices
                 {
                     Title = elementDto.Title,
                     IsChecked = elementDto.IsChecked,
-                    ChecklistId = checklist.Id 
+                    ChecklistId = checklist.Id
                 };
 
                 _context.ChecklistElements.Add(element);
@@ -192,17 +257,22 @@ namespace webapi.Services.NotesServices
         }
         public async Task<bool> DeleteChecklist(long id)
         {
-            //TODO delete all checklist elements as well
             if (_context.Checklists == null)
             {
                 return false;
             }
 
             var checklist = await _context.Checklists.FindAsync(id);
-
             if (checklist == null)
             {
                 return false;
+            }
+
+            var checklistElements = await _context.ChecklistElements.Where(e => e.ChecklistId == checklist.Id).ToListAsync();
+
+            for (int i = 0; i < checklistElements.Count; i++)
+            {
+                _context.ChecklistElements.Remove(checklistElements[i]);
             }
 
             _context.Checklists.Remove(checklist);

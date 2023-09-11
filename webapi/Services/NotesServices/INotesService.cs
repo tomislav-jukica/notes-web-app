@@ -12,10 +12,11 @@ namespace webapi.Services.NotesServices
         public Task<bool> Delete(long id);
 
 
-        //public Task<IEnumerable<Checklist>?> GetChecklists();
-        //public Task<Checklist?> GetChecklist(long id);
-        //public Task<bool> PutChecklist(long id, Checklist checklist);
+        public Task<IEnumerable<Checklist>?> GetChecklists();
+        public Task<IEnumerable<ChecklistElement>?> GetChecklistElements(long id);
+        public Task<ChecklistDto?> GetChecklist(long id);
+        public Task<bool> PutChecklist(long id, ChecklistDto checklist);
         public Task<Checklist?> PostChecklist(ChecklistDto checklist);
-        //public Task<bool> DeleteChecklist(long id);
+        public Task<bool> DeleteChecklist(long id);
     }
 }

@@ -1,28 +1,37 @@
 <div class="card-holder">
   <!-- TODO changing background like this is dumb -->
   <!--[style]="{ background: note.color }"-->
-  <p-card [ngStyle]="{backgroundColor: note.color}" class="note-detail" header={{note.title}}>
+  <p-card [ngStyle]="{backgroundColor: color}" class="note-detail" header={{title}}>
 
     <ng-template pTemplate="header">
-      <p class="created-at">{{note.createdAt}}</p>
+      <p class="created-at">{{createdAt}}</p>
       <div class="tags">
-        <p-tag  *ngFor="let tag of tags">{{tag}}</p-tag>
+        <p-tag *ngFor="let tag of tags">{{tag}}</p-tag>
       </div>
     </ng-template>
 
 
+    <div *ngIf="isNormalNote">
+      <p class="m-0 card-content">
+        {{ content }}
+      </p>
+    </div>
+
+    <div *ngIf="!isNormalNote">
+      <div *ngFor="let element of checklist.elements">
+        <p-checkbox (ngModelChange)="onCheckboxChange($event, element)" label="{{element.title}}" [(ngModel)]="element.isChecked" [binary]="true" inputId="binary"></p-checkbox>
+      </div>
+    </div>
 
 
-    <p class="m-0 card-content">
-      {{note.content}}
-    </p>
+
     <div class="fade-out"> </div>
 
     <i class="pi pi-eye" (click)="onOpen()"></i>
     <i class="pi pi-file-edit" (click)="onEdit()"></i>
     <i class="pi pi-trash" (click)="onDelete()"></i>
-    <i *ngIf="!note.isPinned" class="pi pi-heart" (click)="onPin()"></i>
-    <i *ngIf="note.isPinned" class="pi pi-heart-fill" (click)="onPin()"></i>
+    <i *ngIf="!isPinned" class="pi pi-heart" (click)="onPin()"></i>
+    <i *ngIf="isPinned" class="pi pi-heart-fill" (click)="onPin()"></i>
   </p-card>
 </div>
 

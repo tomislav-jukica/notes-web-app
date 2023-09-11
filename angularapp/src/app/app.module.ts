@@ -19,6 +19,7 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagModule } from 'primeng/tag';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     NoteDetailComponent,
     NoteCreateComponent,
     NoteEditComponent,
-    LayoutComponent
+    LayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,11 +42,13 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     BrowserAnimationsModule,
     TagModule,
     SelectButtonModule,
+    CheckboxModule,
     RouterModule.forRoot([
       {
         path: '', component: LayoutComponent, children: [
           { path: '', component: NoteListComponent },
           { path: 'create', component: NoteCreateComponent },
+          { path: ':checklist/:id', component: NoteEditComponent },
           { path: ':id', component: NoteEditComponent },          
       ] },
     ])

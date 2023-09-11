@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Note } from '../models/note.model';
+import { NormalNote } from '../models/note.model';
 import { NgForm } from '@angular/forms';
 import { NoteService } from '../note.service';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { ChecklistElement } from '../models/checklistElement.model';
   styleUrls: ['./note-create.component.css']
 })
 export class NoteCreateComponent implements OnInit {
-  note: Note;
+  note: NormalNote;
   checklist: Checklist;
 
   stateOptions: any[] = [
@@ -27,16 +27,17 @@ export class NoteCreateComponent implements OnInit {
   constructor(private noteService: NoteService, private router: Router, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.note = new Note("", "", "", "#ffffff", "");
+    this.note = new NormalNote("", "", "", "#ffffff", "");
   }
 
   onSubmit(form: NgForm) {
     if (this.isChecklist) {
-      this.checklist = new Checklist();
-      this.checklist.title = form.value.title;
-      this.checklist.createdAt = formatDate(Date.now(), 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0200');
-      this.checklist.tags = form.value.tags;
-      this.checklist.color = form.value.color;
+      this.checklist = new Checklist(
+        form.value.title,
+        formatDate(Date.now(), 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0200'),
+        form.value.color,
+        form.value.tags,
+       );
       this.checklist.elements = new Array<ChecklistElement>();
 
       for (let i = 0; i < this.checklistElements.length; i++) {

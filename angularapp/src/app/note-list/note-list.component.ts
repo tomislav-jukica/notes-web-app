@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
-import { Note } from '../models/note.model';
+import { NormalNote, Note } from '../models/note.model';
+import { Checklist } from '../models/checklist.model';
 import { NoteService } from '../note.service';
+import { ChecklistElement } from '../models/checklistElement.model';
 
 @Component({
   selector: 'app-note-list',
@@ -9,50 +11,65 @@ import { NoteService } from '../note.service';
   styleUrls: ['./note-list.component.css']
 })
 export class NoteListComponent implements OnInit {
-  public notes: Note[] = new Array<Note>();
-  filteredNotes: Note[] = new Array<Note>();
-  pinnedNotest: Note[] = new Array<Note>();
+  public notes: (Checklist | NormalNote)[] = new Array<(Checklist | NormalNote)>();
+  filteredNotes: (Checklist | NormalNote)[] = new Array<(Checklist | NormalNote)>();
+  pinnedNotes: Note[] = new Array<Note>();
+
+  normalNotes: NormalNote[] = new Array<NormalNote>();
+  checklists: Checklist[] = new Array<Checklist>();
 
   private isSortedByDate: boolean = false;
   private isSortedByTitle: boolean = false;
+
   constructor(private noteService: NoteService) { }
 
   ngOnInit(): void {
-    this.noteService.getAll().subscribe(
-      (result: Note[]) => {
-        this.notes = result;
-        this.filteredNotes = this.notes;
-
-        if (this.isSortedByTitle) {
-          this.sortByTitle();
-        } else if (this.isSortedByDate) {
-          this.sortByTime();
-        } else {
-          this.filteredNotes.sort((a, b) => {
-            if (a.isPinned && !b.isPinned) {
-              return -1;
-            } else if (!a.isPinned && b.isPinned) {
-              return 1;
-            }
-            return 0;
-          });
-        }
-      }, (error) => {
-        console.error(error);
-      }
-    );
+    
+    this.refreshList();
   }
 
   title = 'angularapp';
 
-  afterDelete(note: Note) {
+  refreshList() {
+    this.normalNotes = new Array<NormalNote>();
+    this.checklists = new Array<Checklist>();
+
     this.noteService.getAll().subscribe(
-      (result: Note[]) => {
-        const index = this.filteredNotes.indexOf(note);
-        if (index !== -1) {
-          this.filteredNotes.splice(index, 1);
-        }
-        this.notes = result;
+      (result: NormalNote[]) => {
+        this.normalNotes = result;
+
+        this.noteService.getAllChecklists().subscribe(
+          (checklists: Checklist[]) => {
+
+            checklists.forEach(checklist => {
+              this.noteService.getAllChecklistElements(checklist.id).subscribe(
+                (checklistElements: ChecklistElement[]) => {
+                  checklist.elements = checklistElements;
+                  this.checklists.push(checklist);
+                  this.notes = [...this.normalNotes, ...this.checklists];
+                  this.filteredNotes = this.notes;
+
+                  if (this.isSortedByTitle) {
+                    this.sortByTitle();
+                  } else if (this.isSortedByDate) {
+                    this.sortByTime();
+                  } else {
+                    this.filteredNotes.sort((a, b) => {
+                      if (a.isPinned && !b.isPinned) {
+                        return -1;
+                      } else if (!a.isPinned && b.isPinned) {
+                        return 1;
+                      }
+                      return 0;
+                    });
+                  }
+                }, (error) => {
+                  console.error(error);
+                }
+              );
+            });
+          }
+        )
       }, (error) => {
         console.error(error);
       }
@@ -85,11 +102,23 @@ export class NoteListComponent implements OnInit {
     query = query.toLowerCase().trim();
 
     const relevantNotes = this.notes.filter(note => {
-      if (note.content.toLowerCase().includes(query)
-        || note.title.toLowerCase().includes(query)
-        || (note.tags != null && note.tags.toLowerCase().includes(query))) {
-        return true;
-      }
+      if ((note as NormalNote).content != undefined) {
+        if ((note as NormalNote).content.toLowerCase().includes(query)
+          || note.title.toLowerCase().includes(query)
+          || (note.tags != null && note.tags.toLowerCase().includes(query))) {
+          return true;
+        }
+      } else if ((note as Checklist).elements != undefined) {
+        let checklistContent = "";
+        (note as Checklist).elements.forEach(e => {
+          checklistContent += e.title + " ";
+        });
+        if (checklistContent.toLowerCase().includes(query)
+          || note.title.toLowerCase().includes(query)
+          || (note.tags != null && note.tags.toLowerCase().includes(query))) {
+          return true;
+        }
+      }      
       return false;
     });
 
@@ -110,6 +139,7 @@ export class NoteListComponent implements OnInit {
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
 
+    console.log(this.filteredNotes);
   }
 
   sortByTitle() {
@@ -127,6 +157,5 @@ export class NoteListComponent implements OnInit {
       return a.title.localeCompare(b.title);
     });
   }
-
 }
 
