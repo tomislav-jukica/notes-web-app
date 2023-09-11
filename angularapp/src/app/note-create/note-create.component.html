@@ -1,7 +1,19 @@
 <!--TODO DRY-->
 <div class="container">
 
+
   <form #noteForm="ngForm" (ngSubmit)="onSubmit(noteForm)">
+
+    <div class="field">
+      <p-selectButton
+                      [options]="stateOptions"
+                      [(ngModel)]="isChecklist"
+                      name="isChecklist"
+                      (onChange)="onSelectionChange($event)"
+                      optionLabel="label" optionValue="value"
+                      ></p-selectButton>
+    </div>
+
     <div class="field">
       <span class="p-float-label">
         <input required [ngModel]="note.title" pInputText name="title" id="title" />
@@ -11,12 +23,29 @@
 
     <br />
 
-    <div class="field">
+    <div *ngIf="!isChecklist" class="field">
       <span class="p-float-label">
         <textarea [ngModel]="note.content" name="content" class="text-area" id="float-input" rows="5" cols="30" pInputTextarea></textarea>
         <!--<label for="float-input">Content</label>-->
       </span>
     </div>
+
+    <div *ngIf="isChecklist" class="field">
+      <input [(ngModel)]="checklistElement" pInputText name="checklistElement" id="checklistElement" />
+    </div>
+
+    <div *ngIf="isChecklist" class="field">
+      <p-button styleClass="p-button" label="Add checklist element" (onClick)="addChecklistElement()"></p-button>
+    </div>
+
+    <div *ngIf="isChecklist" class="field">
+      <ul class="heroes">
+        <li *ngFor="let element of checklistElements">
+          {{element}}
+        </li>
+      </ul>
+    </div>
+
 
     <div class="field">
       <label class="tag-label" htmlFor="tags">Tags (use space for different tags)</label>

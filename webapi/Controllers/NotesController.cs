@@ -61,6 +61,53 @@ namespace webapi.Controllers
             bool result = await _notesService.Delete(id);
             return result ? Ok() : NotFound();
         }
+
+        //
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Checklist>>> GetChecklists()
+        //{
+        //    var result = await _notesService.Get();
+
+        //    if (result == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(result);
+        //}
+
+        //[HttpGet("checklist/{id}")]
+        //public async Task<ActionResult<Checklist>> GetChecklist(long id)
+        //{
+        //    var result = await _notesService.GetChecklist(id);
+        //    return result != null ? Ok(result) : NotFound();
+        //}
+
+        //[HttpPut("checklist/{id}")]
+        //public async Task<IActionResult> PutChecklist(long id, Checklist checklist)
+        //{
+        //    bool result = await _notesService.PutChecklist(id, checklist);
+        //    return result ? Ok() : BadRequest();
+        //}
+
+        [HttpPost("/notes/checklist")]
+        public async Task<ActionResult<Checklist>> PostChecklist(ChecklistDto checklistDto)
+        {
+            var result = await _notesService.PostChecklist(checklistDto);
+            if(result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+
+        //[HttpDelete("checklist/{id}")]
+        //public async Task<IActionResult> DeleteChecklist(long id)
+        //{
+        //    bool result = await _notesService.DeleteChecklist(id);
+        //    return result ? Ok() : NotFound();
+        //}
     }
 }
 

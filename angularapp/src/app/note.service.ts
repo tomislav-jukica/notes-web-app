@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Note } from './models/note.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Checklist } from './models/checklist.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +39,10 @@ export class NoteService {
 
   delete(id: number): Observable<null> {
     return this.http.delete<null>('/notes/' + id);
+  }
+
+  addChecklist(checklist: Checklist) {
+    console.log(checklist);
+    return this.http.post<Checklist>('/notes/checklist', checklist);
   }
 }

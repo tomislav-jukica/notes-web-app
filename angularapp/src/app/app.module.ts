@@ -18,6 +18,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagModule } from 'primeng/tag';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { TagModule } from 'primeng/tag';
     ColorPickerModule,
     BrowserAnimationsModule,
     TagModule,
+    SelectButtonModule,
     RouterModule.forRoot([
       {
         path: '', component: LayoutComponent, children: [

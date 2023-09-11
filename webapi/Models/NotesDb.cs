@@ -6,5 +6,7 @@ namespace webapi.Models
     {
         public NotesDb(DbContextOptions options) : base(options) { }
         public DbSet<Note> Notes { get; set; } = null!;
+        public DbSet<Checklist> Checklists { get; set; } = null!;
+        public DbSet<ChecklistElement> ChecklistElements { get; set; }
     }
 }
