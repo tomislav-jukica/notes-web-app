@@ -12,7 +12,7 @@ import { NoteListComponent } from '../note-list/note-list.component';
 })
 export class NoteDetailComponent implements OnInit {
   @Input() public note: Note;
-  tags: string;
+  tags: string[];
 
   constructor(
     private noteService: NoteService,
@@ -20,7 +20,7 @@ export class NoteDetailComponent implements OnInit {
     private noteList: NoteListComponent) { }
 
   ngOnInit(): void {
-    this.tags = this.note.tags;
+    this.tags = this.note.tags?.trim().split(' ');
     console.log(this.tags);
     }
 

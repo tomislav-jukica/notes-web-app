@@ -17,6 +17,8 @@
     font-style: italic;
     top: 130px;
     left: 10px;
+    display:flex;
+    justify-content:center;
 }
 
 .card-content {

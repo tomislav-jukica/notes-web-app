@@ -5,7 +5,9 @@
 
     <ng-template pTemplate="header">
       <p class="created-at">{{note.createdAt}}</p>
-      <span class="tags">{{tags}}</span>
+      <div class="tags">
+        <p-tag  *ngFor="let tag of tags">{{tag}}</p-tag>
+      </div>
     </ng-template>
 
 
