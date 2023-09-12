@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagModule } from 'primeng/tag';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { CheckboxModule } from 'primeng/checkbox';
+import { NoteResolver } from './note.resolver';
 
 @NgModule({
   declarations: [
@@ -45,15 +46,34 @@ import { CheckboxModule } from 'primeng/checkbox';
     CheckboxModule,
     RouterModule.forRoot([
       {
-        path: '', component: LayoutComponent, children: [
-          { path: '', component: NoteListComponent },
-          { path: 'create', component: NoteCreateComponent },
-          { path: ':checklist/:id', component: NoteEditComponent },
-          { path: ':id', component: NoteEditComponent },          
-      ] },
+        path: '',
+        component: LayoutComponent,
+        children: [
+          {
+            path: '',
+            component: NoteListComponent
+          },
+          {
+            path: 'create',
+            component: NoteCreateComponent
+          },
+          {
+            path: ':checklist/:id',
+            component: NoteEditComponent
+          },
+          {
+            path: ':id',
+            component: NoteEditComponent,
+            resolve: {
+              noteData: NoteResolver
+            }
+          }
+        ]
+      },
     ])
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [RouterModule]
 })
 export class AppModule { }

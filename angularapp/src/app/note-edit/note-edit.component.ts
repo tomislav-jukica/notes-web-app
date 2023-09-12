@@ -36,14 +36,8 @@ export class NoteEditComponent implements OnInit {
     })
 
     if (this.isNormalNote) {
-      this.noteService.get(this.id).subscribe(
-        (result) => {
-          this.note = result;
-          this.loading = false;
-        }, (error) => {
-          console.error(error);
-        }
-      );
+      this.note = this.route.snapshot.data['noteData'];
+      this.loading = false;
     } else {
       this.noteService.getChecklist(this.id).subscribe(
         (result) => {
