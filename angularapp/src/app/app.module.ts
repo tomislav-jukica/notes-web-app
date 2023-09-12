@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { NoteListComponent } from './note-list/note-list.component';
 import { NoteDetailComponent } from './note-detail/note-detail.component';
-import { NoteCreateComponent } from './note-create/note-create.component';
 import { NoteEditComponent } from './note-edit/note-edit.component';
 import { RouterModule } from '@angular/router';
 
@@ -27,7 +26,6 @@ import { NoteResolver } from './note.resolver';
     AppComponent,
     NoteListComponent,
     NoteDetailComponent,
-    NoteCreateComponent,
     NoteEditComponent,
     LayoutComponent,
   ],
@@ -55,7 +53,7 @@ import { NoteResolver } from './note.resolver';
           },
           {
             path: 'create',
-            component: NoteCreateComponent
+            loadChildren: () => import('./note-create/note-create.module').then(m => m.NoteCreateModule)
           },
           {
             path: ':checklist/:id',
