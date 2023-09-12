@@ -15,5 +15,6 @@ namespace webapi.Models
         public bool IsPinned { get; set; }
         public string? Color { get; set; }
         public string? Tags { get; set; }
+        public long UserId { get; set; }
     }
 }

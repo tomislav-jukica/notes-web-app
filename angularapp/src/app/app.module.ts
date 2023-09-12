@@ -20,6 +20,8 @@ import { TagModule } from 'primeng/tag';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { NoteResolver } from './note.resolver';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.guard';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { NoteResolver } from './note.resolver';
     NoteDetailComponent,
     NoteEditComponent,
     LayoutComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,12 @@ import { NoteResolver } from './note.resolver';
         children: [
           {
             path: '',
-            component: NoteListComponent
+            component: NoteListComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: "login",
+            component: LoginComponent
           },
           {
             path: 'create',
@@ -57,15 +65,18 @@ import { NoteResolver } from './note.resolver';
           },
           {
             path: ':checklist/:id',
-            component: NoteEditComponent
+            component: NoteEditComponent,
+            canActivate: [AuthGuard]
           },
           {
             path: ':id',
             component: NoteEditComponent,
             resolve: {
               noteData: NoteResolver
-            }
-          }
+            },
+            canActivate: [AuthGuard]
+          },
+          
         ]
       },
     ])

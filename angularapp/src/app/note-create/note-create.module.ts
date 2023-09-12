@@ -6,11 +6,13 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { InputTextModule } from 'primeng/inputtext';
+import { AuthGuard } from '../auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: NoteCreateComponent
+    component: NoteCreateComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

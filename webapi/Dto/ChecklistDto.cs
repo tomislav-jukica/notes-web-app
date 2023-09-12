@@ -8,5 +8,6 @@
         public string? Color { get; set; }
         public string? Tags { get; set; }
         public List<ChecklistElementDto>? Elements { get; set; }
+        public long UserId { get; set; }
     }
 }
