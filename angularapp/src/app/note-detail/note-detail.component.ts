@@ -116,6 +116,7 @@ export class NoteDetailComponent implements OnInit {
       this.normalNote.isPinned = !this.normalNote.isPinned;
       this.noteService.update(this.normalNote.id, this.normalNote.title, this.normalNote.content, this.normalNote.createdAt, this.normalNote.isPinned, this.normalNote.color, this.normalNote.tags).subscribe(
         () => {
+          this.ngOnInit();
           this.noteList.refreshList();
         }, (error) => {
           console.error(error);
@@ -124,6 +125,7 @@ export class NoteDetailComponent implements OnInit {
       this.checklist.isPinned = !this.checklist.isPinned;
       this.noteService.updateChecklist(this.checklist.id, this.checklist.title, this.checklist.elements, this.checklist.createdAt, this.checklist.isPinned, this.checklist.color, this.checklist.tags).subscribe(
         () => {
+          this.ngOnInit();
           this.noteList.refreshList();
         }, (error) => {
           console.error(error);

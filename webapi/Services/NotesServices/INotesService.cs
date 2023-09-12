@@ -1,4 +1,5 @@
-﻿using webapi.Models;
+﻿using webapi.Dto;
+using webapi.Models;
 
 namespace webapi.Services.NotesServices
 {

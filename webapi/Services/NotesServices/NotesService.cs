@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using webapi.Dto;
 using webapi.Models;
 
 namespace webapi.Services.NotesServices
