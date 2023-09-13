@@ -7,12 +7,13 @@ import { ButtonModule } from 'primeng/button';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { InputTextModule } from 'primeng/inputtext';
 import { AuthGuard } from '../auth.guard';
+import { editorGuard } from '../editor.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: NoteCreateComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, editorGuard]
   }
 ];
 

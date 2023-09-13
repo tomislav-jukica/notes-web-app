@@ -19,6 +19,7 @@ export class LoginComponent {
       (response) => {
         if (response && response.token) {
           this.authService.setToken(response.token);
+          this.authService.setRole(response.role);
           this.router.navigate(['']);
           console.log('Login successful');
         } else {

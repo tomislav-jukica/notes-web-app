@@ -4,7 +4,7 @@ namespace webapi.Services.UsersServices
 {
     public interface IUsersService
     {
-        public bool UserExists(string username, string password);
+        public int UserExists(string username, string password);
         public Task<IEnumerable<User>?> Get();
         public Task<User?> Get(long id);
         public Task<bool> Put(long id, User note);

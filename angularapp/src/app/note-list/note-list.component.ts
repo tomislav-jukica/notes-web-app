@@ -4,6 +4,7 @@ import { NormalNote, Note } from '../models/note.model';
 import { Checklist } from '../models/checklist.model';
 import { NoteService } from '../note.service';
 import { ChecklistElement } from '../models/checklistElement.model';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-note-list',
@@ -21,7 +22,7 @@ export class NoteListComponent implements OnInit {
   private isSortedByDate: boolean = false;
   private isSortedByTitle: boolean = false;
 
-  constructor(private noteService: NoteService) { }
+  constructor(private noteService: NoteService, private authService: AuthService) { }
 
   ngOnInit(): void {
     
@@ -156,6 +157,10 @@ export class NoteListComponent implements OnInit {
 
       return a.title.localeCompare(b.title);
     });
+  }
+
+  canEdit(): boolean {
+    return (this.authService.getRole() == 0 || this.authService.getRole() == 1);
   }
 }
 

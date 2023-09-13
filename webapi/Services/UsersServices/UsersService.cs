@@ -12,11 +12,17 @@ namespace webapi.Services.UsersServices
             _context = context;
         }
 
-        public bool UserExists(string username, string password)
+        public int UserExists(string username, string password)
         {
-            var user =  _context.Users.Where(x => x.Username == username && x.Password == password);
-            return user != null;
+            var user =  _context.Users.Where(x => x.Username == username && x.Password == password).FirstOrDefault();
+            if(user != null)
+            {
+                return user.Role;
+            }
+
+            return -1;
         }
+
 
         public async Task<IEnumerable<User>?> Get()
         {

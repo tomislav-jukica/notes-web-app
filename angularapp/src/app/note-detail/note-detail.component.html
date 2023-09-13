@@ -27,9 +27,9 @@
 
     <div class="fade-out"> </div>
 
-    <i class="pi pi-eye" (click)="onOpen()"></i>
-    <i class="pi pi-file-edit" (click)="onEdit()"></i>
-    <i class="pi pi-trash" (click)="onDelete()"></i>
+    <i *ngIf="canEdit()" class="pi pi-eye" (click)="onOpen()"></i>
+    <i *ngIf="canEdit()" class="pi pi-file-edit" (click)="onEdit()"></i>
+    <i *ngIf="canEdit()" class="pi pi-trash" (click)="onDelete()"></i>
     <i *ngIf="!isPinned" class="pi pi-heart" (click)="onPin()"></i>
     <i *ngIf="isPinned" class="pi pi-heart-fill" (click)="onPin()"></i>
   </p-card>

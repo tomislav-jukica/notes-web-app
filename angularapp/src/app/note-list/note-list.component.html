@@ -21,6 +21,6 @@
   </div>
 
 
-  <p-button label="Create new note" styleClass="p-button-raised-" class="add-button" routerLink="create"></p-button>
+  <p-button *ngIf="canEdit()" label="Create new note" styleClass="p-button-raised-" class="add-button" routerLink="create"></p-button>
 
 </div>

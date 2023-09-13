@@ -22,6 +22,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { NoteResolver } from './note.resolver';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
+import { editorGuard } from './editor.guard';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,7 @@ import { AuthGuard } from './auth.guard';
           {
             path: ':checklist/:id',
             component: NoteEditComponent,
-            canActivate: [AuthGuard]
+            canActivate: [AuthGuard, editorGuard],
           },
           {
             path: ':id',
@@ -74,7 +75,7 @@ import { AuthGuard } from './auth.guard';
             resolve: {
               noteData: NoteResolver
             },
-            canActivate: [AuthGuard]
+            canActivate: [AuthGuard, editorGuard]
           },
           
         ]

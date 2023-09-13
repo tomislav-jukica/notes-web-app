@@ -5,6 +5,7 @@ import { NoteListComponent } from '../note-list/note-list.component';
 import { NormalNote, Note } from '../models/note.model';
 import { Checklist } from '../models/checklist.model';
 import { ChecklistElement } from '../models/checklistElement.model';
+import { AuthService } from '../auth.service';
 
 
 @Component({
@@ -25,13 +26,18 @@ export class NoteDetailComponent implements OnInit {
   color: string;
   checklistElements: ChecklistElement[] = new Array<ChecklistElement>();
 
+  role: number;
 
   constructor(
     private noteService: NoteService,
     private router: Router,
-    private noteList: NoteListComponent) { }
+    private noteList: NoteListComponent,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
+
+    this.role = this.authService.getRole();
+
     this.normalNote = (this.note as NormalNote);
     this.checklist = (this.note as Checklist);
 
@@ -69,6 +75,10 @@ export class NoteDetailComponent implements OnInit {
         this.checklistElements.push(checklistElement);
       }
     }
+  }
+
+  canEdit(): boolean {
+      return(this.role == 0 || this.role == 1);
   }
 
   onEdit() {

@@ -26,16 +26,17 @@ namespace MyJwtApi.Controllers
         [HttpPost("login")]
         public IActionResult Login(User user)
         {
-            if (IsValidUser(user.Username, user.Password))
+            int userRole = IsValidUser(user.Username, user.Password);
+            if (userRole != -1)
             {
                 var token = GenerateJwtToken(user.Username);
-                return Ok(new { Token = token });
+                return Ok(new { Token = token, Role = userRole });
             }
 
             return Unauthorized();
         }
 
-        private bool IsValidUser(string username, string password)
+        private int IsValidUser(string username, string password)
         {
             return _usersService.UserExists(username, password);
         }

@@ -10,6 +10,7 @@ namespace webapi.Models
         public required string Username { get; set; }
         [Required(ErrorMessage = "Password can't be empty.")]
         public required string Password { get; set; }
+        public int Role { get; set; }
 
     }
 }

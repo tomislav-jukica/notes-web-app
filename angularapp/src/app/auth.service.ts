@@ -33,6 +33,15 @@ export class AuthService {
     return sessionStorage.getItem(this.tokenKey);
   }
 
+  setRole(role: number) {
+    sessionStorage.setItem("role", role.toString());
+  }
+
+  getRole(): number {
+    const roleString = sessionStorage.getItem("role");
+    return Number(roleString);
+  }
+
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
