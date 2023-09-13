@@ -8,6 +8,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { InputTextModule } from 'primeng/inputtext';
 import { AuthGuard } from '../auth.guard';
 import { editorGuard } from '../editor.guard';
+import { ColorPickerModule } from 'primeng/colorpicker';
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
     ButtonModule,
     SelectButtonModule,
     InputTextModule,
+    ColorPickerModule,
     RouterModule.forChild(routes)
   ],
   declarations: [NoteCreateComponent]

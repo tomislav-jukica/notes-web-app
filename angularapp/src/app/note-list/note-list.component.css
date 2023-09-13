@@ -1,16 +1,16 @@
 .container {
-  background: red;
   display: flex;
   flex-direction: column;
   margin: auto;
   padding: 20px 0;
+  min-width: 1000px;
 }
 
 .menu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .menu-buttons {
@@ -34,23 +34,34 @@
   }
 
 .note-list {
-  background: green;
+  background: var(--green);
   display: grid;
   grid-template-columns: auto auto auto;
   justify-content: space-evenly;
   align-items: center;
 }
 
-.card {
+/*.card {
     width: 250px;
-}
+}*/
 
 .add-button {
     position: fixed;
     bottom: 10px;
-    width: 100%;
+    align-self: center;
+}
+
+.loading-text {
     display:flex;
     justify-content: center;
-    align-items: center;
+    align-items:center;
+    height: 100%;
+}
+
+.loading-text h1 {
+    font-size: 5rem;
+}
+
+.color-picker {
 
 }

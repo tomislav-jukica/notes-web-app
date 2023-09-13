@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf="!isLoading" class="container">
   <div class="menu">
 
     <div class="search">
@@ -23,4 +23,8 @@
 
   <p-button *ngIf="canEdit()" label="Create new note" styleClass="p-button-raised-" class="add-button" routerLink="create"></p-button>
 
+</div>
+
+<div class="loading-text" *ngIf="isLoading">
+  <h1>LOADING...</h1>
 </div>

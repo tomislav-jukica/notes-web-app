@@ -1,12 +1,16 @@
 <div class="login-container">
-  <h2>Login</h2>
-  <form (ngSubmit)="onSubmit()">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" [(ngModel)]="username" required>
+  <form class="login-form" (ngSubmit)="onSubmit()">
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" [(ngModel)]="password" required>
+    <span class="p-float-label">
+      <input required [(ngModel)]="username" pInputText name="username" id="username" type="text" />
+      <label htmlFor="title">Username</label>
+    </span>
 
-    <button type="submit">Login</button>
+    <span class="p-float-label">
+      <input required [(ngModel)]="password" pInputText name="password" id="password" type="text" />
+      <label htmlFor="title">Password</label>
+    </span>
+
+    <p-button type="submit">Login</p-button>
   </form>
 </div>

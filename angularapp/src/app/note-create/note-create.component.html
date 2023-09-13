@@ -1,7 +1,5 @@
 <!--TODO DRY-->
 <div class="container">
-
-
   <form #noteForm="ngForm" (ngSubmit)="onSubmit(noteForm)">
 
     <div class="field">
@@ -53,7 +51,7 @@
     </div>
 
     <div class="field">
-      <p-colorPicker class="color-picker" [(ngModel)]="note.color" name="color"></p-colorPicker>
+      <p-colorPicker class="color-picker" ngDefaultControl  [(ngModel)]="checklist.color" name="color"></p-colorPicker>
     </div>
 
     <div class="field buttons">

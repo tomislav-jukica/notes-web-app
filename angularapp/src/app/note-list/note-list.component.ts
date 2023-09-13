@@ -5,6 +5,7 @@ import { Checklist } from '../models/checklist.model';
 import { NoteService } from '../note.service';
 import { ChecklistElement } from '../models/checklistElement.model';
 import { AuthService } from '../auth.service';
+import { catchError, forkJoin, map, mergeMap, of, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-note-list',
@@ -18,6 +19,7 @@ export class NoteListComponent implements OnInit {
 
   normalNotes: NormalNote[] = new Array<NormalNote>();
   checklists: Checklist[] = new Array<Checklist>();
+  isLoading: boolean;
 
   private isSortedByDate: boolean = false;
   private isSortedByTitle: boolean = false;
@@ -25,7 +27,7 @@ export class NoteListComponent implements OnInit {
   constructor(private noteService: NoteService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    
+    this.isLoading = true;
     this.refreshList();
   }
 
@@ -35,46 +37,59 @@ export class NoteListComponent implements OnInit {
     this.normalNotes = new Array<NormalNote>();
     this.checklists = new Array<Checklist>();
 
-    this.noteService.getAll().subscribe(
-      (result: NormalNote[]) => {
-        this.normalNotes = result;
-
-        this.noteService.getAllChecklists().subscribe(
-          (checklists: Checklist[]) => {
-
-            checklists.forEach(checklist => {
-              this.noteService.getAllChecklistElements(checklist.id).subscribe(
-                (checklistElements: ChecklistElement[]) => {
-                  checklist.elements = checklistElements;
-                  this.checklists.push(checklist);
-                  this.notes = [...this.normalNotes, ...this.checklists];
-                  this.filteredNotes = this.notes;
-
-                  if (this.isSortedByTitle) {
-                    this.sortByTitle();
-                  } else if (this.isSortedByDate) {
-                    this.sortByTime();
-                  } else {
-                    this.filteredNotes.sort((a, b) => {
-                      if (a.isPinned && !b.isPinned) {
-                        return -1;
-                      } else if (!a.isPinned && b.isPinned) {
-                        return 1;
-                      }
-                      return 0;
-                    });
-                  }
-                }, (error) => {
-                  console.error(error);
-                }
-              );
-            });
-          }
-        )
-      }, (error) => {
+    this.noteService.getAll().pipe(
+      catchError(error => {
         console.error(error);
+        return throwError(() => error);
+      }),
+      mergeMap((result: NormalNote[]) => {
+        this.normalNotes = result;
+        return this.noteService.getAllChecklists();
+      }),
+      catchError(error => {
+        console.error(error);
+        return throwError(() => error);
+      }),
+      mergeMap((checklists: Checklist[]) => {
+        const checklistObservables = checklists.map(checklist =>
+          this.noteService.getAllChecklistElements(checklist.id).pipe(
+            catchError(error => {
+              console.error(error);
+              return of([]); // Return an empty array if there's an error
+            }),
+            map((checklistElements: ChecklistElement[]) => {
+              checklist.elements = checklistElements;
+              this.checklists.push(checklist);
+              return this.checklists;
+            })
+          )
+        );
+        return forkJoin(checklistObservables);
+      }),
+      catchError(error => {
+        console.error(error);
+        return throwError(() => error);
+      })
+    ).subscribe(() => {
+      this.notes = [...this.normalNotes, ...this.checklists];
+      this.filteredNotes = this.notes;
+
+      if (this.isSortedByTitle) {
+        this.sortByTitle();
+      } else if (this.isSortedByDate) {
+        this.sortByTime();
+      } else {
+        this.filteredNotes.sort((a, b) => {
+          if (a.isPinned && !b.isPinned) {
+            return -1;
+          } else if (!a.isPinned && b.isPinned) {
+            return 1;
+          }
+          return 0;
+        });
       }
-    );
+      this.isLoading = false;
+    });
   }
 
   filter(event: Event) {

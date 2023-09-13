@@ -5,10 +5,17 @@
     justify-content: center;
     align-items: center;
     display: flex;
+    background-color: var(--green);
+    padding: 50px;
+}
+
+.fields-wrapper {
+  background-color: var(--green);
+  padding: 20px;
 }
 
 .field {
-    margin-top: 15px;
+    margin-top: 25px;
 }
 
 .field.buttons {
@@ -16,6 +23,7 @@
     display:flex;
     justify-content:center;
     align-items: center;
+    margin: 20px auto 20px auto;
 }
 
 .p-element {
@@ -37,3 +45,11 @@
   padding-bottom: 5px;
   display: block;
 }
+
+.checklist-element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+

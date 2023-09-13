@@ -8,8 +8,6 @@
       </span>
     </div>
 
-    <br />
-
     <div class="field">
       <span class="p-float-label">
         <textarea [ngModel]="note.content" name="content" class="text-area" id="float-input" rows="5" cols="30" pInputTextarea></textarea>
@@ -38,32 +36,32 @@
 <div *ngIf="!isNormalNote" class="container">
 
   <form *ngIf="!loading" #noteForm="ngForm" (ngSubmit)="onSubmit(noteForm)">
-    <div class="field">
-      <span class="p-float-label">
-        <input required [ngModel]="checklist.title" pInputText name="title" id="title" />
-        <label htmlFor="title">Title</label>
-      </span>
-    </div>
-
-    <br />
-
-    <div class="field">
-      <div *ngFor="let element of checklist.elements">
-        <p-checkbox name="{{element.title}}" (ngModelChange)="onCheckboxChange($event, element)" [(ngModel)]="element.isChecked" [binary]="true" inputId="binary"></p-checkbox>
-        <input (keyup)="onCheckboxTitleChange($event, element)" required [ngModel]="element.title" name="element{{element.title}}" />
+    <div class="fields-wrapper">
+      <div class="field">
+        <span class="p-float-label">
+          <input required [ngModel]="checklist.title" pInputText name="title" id="title" />
+          <label htmlFor="title">Title</label>
+        </span>
       </div>
-    </div>
+
+      <div class="field">
+        <div class="checklist-element" *ngFor="let element of checklist.elements">
+          <p-checkbox name="{{element.title}}" (ngModelChange)="onCheckboxChange($event, element)" [(ngModel)]="element.isChecked" [binary]="true" inputId="binary"></p-checkbox>
+          <input (keyup)="onCheckboxTitleChange($event, element)" required [ngModel]="element.title" name="element{{element.title}}" />
+        </div>
+      </div>
 
 
-    <div class="field">
-      <span class="p-float-label">
-        <input [ngModel]="checklist.tags" pInputText name="tags" id="tags" />
-        <label class="tag-label" htmlFor="tags">Tags (use space for different tags)</label>
-      </span>
-    </div>
+      <div class="field">
+        <span class="p-float-label">
+          <input [ngModel]="checklist.tags" pInputText name="tags" id="tags" />
+          <label class="tag-label" htmlFor="tags">Tags (use space for different tags)</label>
+        </span>
+      </div>
 
-    <div class="field">
-      <p-colorPicker class="color-picker" [(ngModel)]="checklist.color" name="color"></p-colorPicker>
+      <div class="field">
+        <p-colorPicker class="color-picker" [(ngModel)]="checklist.color" name="color"></p-colorPicker>
+      </div>
     </div>
     <div class="field buttons">
       <p-button type="submit" styleClass="p-button-success" [disabled]="!noteForm.valid" label="Save"></p-button>

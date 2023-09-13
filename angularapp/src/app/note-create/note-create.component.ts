@@ -28,6 +28,7 @@ export class NoteCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.note = new NormalNote("", "", "", "#ffffff", "");
+    this.checklist = new Checklist("", "", "#ffffff", "");
   }
 
   onSubmit(form: NgForm) {
@@ -58,7 +59,8 @@ export class NoteCreateComponent implements OnInit {
       this.note.title = form.value.title;
       this.note.content = form.value.content;
       this.note.createdAt = formatDate(Date.now(), 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0200');
-
+      this.note.color = form.value.color;
+      this.note.tags = form.value.tags;
       this.noteService.add(this.note).subscribe(
         (result) => {
           console.log(result);
@@ -71,8 +73,7 @@ export class NoteCreateComponent implements OnInit {
   }
 
   onSelectionChange(event: any) {
-    console.log('Selected value:', event.value); // The selected value
-    // Handle the selection change here
+    console.log('Selected value:', event.value);
   }
 
   addChecklistElement() {

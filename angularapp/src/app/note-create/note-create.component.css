@@ -6,6 +6,8 @@
   justify-content: center;
   align-items: center;
   display: flex;
+  background-color: var(--green);
+  padding: 50px;
 }
 
 .field {

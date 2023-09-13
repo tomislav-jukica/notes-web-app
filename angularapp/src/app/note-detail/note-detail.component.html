@@ -1,7 +1,7 @@
 <div class="card-holder">
   <!-- TODO changing background like this is dumb -->
   <!--[style]="{ background: note.color }"-->
-  <p-card [ngStyle]="{backgroundColor: color}" class="note-detail" header={{title}}>
+  <p-card [style]="{ height: '250px' }" [ngStyle]="{backgroundColor: color}" class="note-detail" header={{title}}>
 
     <ng-template pTemplate="header">
       <p class="created-at">{{createdAt}}</p>
